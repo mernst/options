@@ -219,8 +219,8 @@ import org.plumelib.util.CollectionsP;
  *
  * <ul>
  *   <li>Primitive types: boolean, byte, char, short, int, long, float, double.
- *   <li>Primitive type wrappers: Boolean, Byte, Char, Short, Integer, Long, Float, Double. Use of a
- *       wrapper type allows the argument to have no default value.
+ *   <li>Primitive type wrappers: Boolean, Byte, Character, Short, Integer, Long, Float, Double. Use
+ *       of a wrapper type allows the argument to have no default value.
  *   <li>Reference types that have a constructor with a single string parameter.
  *   <li>java.util.regex.Pattern.
  *   <li>enums.
@@ -1028,7 +1028,7 @@ public class Options {
 
       if (arg.equals("--")) {
         ignoreOptions = true;
-      } else if ((arg.startsWith("--") || arg.startsWith("-")) && !ignoreOptions) {
+      } else if (arg.startsWith("-") && !ignoreOptions) {
         String argName;
         String argValue;
 
@@ -1565,8 +1565,9 @@ public class Options {
     if (constants == null) {
       throw new IllegalArgumentException(enumType.getName() + " is not an enum type");
     }
+    String nameWithUnderscores = name.replace('-', '_');
     for (T constant : constants) {
-      if (constant.name().equalsIgnoreCase(name.replace('-', '_'))) {
+      if (constant.name().equalsIgnoreCase(nameWithUnderscores)) {
         return constant;
       }
     }
